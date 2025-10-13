@@ -4,44 +4,31 @@ Merged and optimized single-file application
 """
 
 import os
-import json
 import io
+import json
 import pickle
 import hashlib
-from datetime import datetime
-import pandas as pd
-import numpy as np
-from datetime import datetime
-from flask import Flask, request, jsonify, render_template, session, send_file
-from flask_session import Session
-import pandas as pd
-import numpy as np
-import os
-import sys
-import logging
-from pathlib import Path
-from datetime import datetime, timedelta
-import io
 import base64
-import pickle
-from typing import Dict, List, Tuple, Optional
-import json
-from werkzeug.utils import secure_filename
 import logging
-from typing import List, Dict, Optional
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Dict, List, Tuple, Optional
 
-# Scikit-learn imports
+import pandas as pd
+import numpy as np
+
+from flask import Flask, request, jsonify, render_template, session
+from flask_session import Session
+from werkzeug.utils import secure_filename
+
+# ML imports
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler, LabelEncoder
 from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV, cross_val_score
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import accuracy_score, f1_score, mean_squared_error, r2_score, roc_auc_score
 from sklearn.datasets import load_iris, load_wine, load_breast_cancer, load_diabetes
-
-# ML models
 import xgboost as xgb
 import lightgbm as lgb
-
-# Imbalanced learning
 from imblearn.over_sampling import SMOTE
 
 import warnings
