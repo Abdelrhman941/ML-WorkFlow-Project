@@ -1,0 +1,6 @@
+flask_session/
+session_data/
+uploads/
+*.pyc
+__pycache__/
+.vscode/

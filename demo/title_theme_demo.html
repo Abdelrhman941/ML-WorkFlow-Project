@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Studio Title & Theme Toggle Animation Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 60px;
+            text-align: center;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .demo-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .demo-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .demo-preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            margin: 30px 0;
+        }
+
+        /* ML Studio Shine Animation */
+        .ml-studio-title {
+            font-size: 3rem;
+            padding: 12px 48px;
+            background: linear-gradient(to right, #9f9f9f 0, #fff 10%, #868686 20%);
+            background-position: 0;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shine 3s infinite linear;
+            animation-fill-mode: forwards;
+            -webkit-text-size-adjust: none;
+            font-weight: 700;
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: 0;
+            }
+            60% {
+                background-position: 180px;
+            }
+            100% {
+                background-position: 180px;
+            }
+        }
+
+        @-webkit-keyframes shine {
+            0% {
+                background-position: 0;
+            }
+            60% {
+                background-position: 180px;
+            }
+            100% {
+                background-position: 180px;
+            }
+        }
+
+        /* Theme Toggle Switch */
+        .switch {
+            display: block;
+            --width-of-switch: 3.5em;
+            --height-of-switch: 2em;
+            --size-of-icon: 1.4em;
+            --slider-offset: 0.3em;
+            position: relative;
+            width: var(--width-of-switch);
+            height: var(--height-of-switch);
+            margin: 0 auto;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #f4f4f5;
+            transition: .4s;
+            border-radius: 30px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: var(--size-of-icon, 1.4em);
+            width: var(--size-of-icon, 1.4em);
+            border-radius: 20px;
+            left: var(--slider-offset, 0.3em);
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(40deg, #ff0080, #ff8c00 70%);
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #303136;
+        }
+
+        input:checked + .slider:before {
+            left: calc(100% - (var(--size-of-icon, 1.4em) + var(--slider-offset, 0.3em)));
+            background: #303136;
+            box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
+        }
+
+        .info-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-list li {
+            padding: 10px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid #5bc0be;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .navbar-preview {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .nav-brand-demo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+
+        .nav-brand-demo i {
+            color: #5bc0be;
+            font-size: 1.8rem;
+        }
+
+        .rocket-icon {
+            color: #5bc0be;
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <h1>🎨 ML Studio - Animation Showcase</h1>
+
+    <div class="demo-container">
+        <!-- Title Shine Animation -->
+        <div class="demo-section">
+            <div class="demo-title">✨ Title Shine Animation</div>
+            <div class="demo-preview">
+                <i class="fas fa-rocket rocket-icon"></i>
+                <div class="ml-studio-title">ML Studio</div>
+            </div>
+            <p class="info-text">Smooth gradient shine effect that continuously animates</p>
+            <ul class="feature-list">
+                <li>✅ Gradient animation from dark to white to dark</li>
+                <li>✅ 3-second infinite loop</li>
+                <li>✅ Smooth linear animation</li>
+                <li>✅ Professional and eye-catching</li>
+            </ul>
+        </div>
+
+        <!-- Theme Toggle Switch -->
+        <div class="demo-section">
+            <div class="demo-title">🌙 Theme Toggle Switch</div>
+            <div class="demo-preview">
+                <label class="switch">
+                    <input type="checkbox" id="themeDemo">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <p class="info-text" id="themeStatus">Current: Light Mode (Sun) ☀️</p>
+            <ul class="feature-list">
+                <li>✅ Animated sun icon (light mode)</li>
+                <li>✅ Animated moon icon (dark mode)</li>
+                <li>✅ Smooth transition animations</li>
+                <li>✅ Beautiful gradient colors</li>
+            </ul>
+            <div class="controls">
+                <button class="btn" onclick="document.getElementById('themeDemo').click()">
+                    Toggle Theme
+                </button>
+            </div>
+        </div>
+
+        <!-- Combined Preview -->
+        <div class="demo-section">
+            <div class="demo-title">🚀 Navbar Preview</div>
+            <div class="navbar-preview">
+                <div class="nav-brand-demo">
+                    <i class="fas fa-rocket"></i>
+                    <span class="ml-studio-title">ML Studio</span>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="themeDemo2">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <p class="info-text">This is how it looks in the actual navbar</p>
+        </div>
+
+        <!-- Animation Details -->
+        <div class="demo-section">
+            <div class="demo-title">📝 Technical Details</div>
+            <ul class="feature-list">
+                <li><strong>Title Animation:</strong> CSS gradient with background-position animation</li>
+                <li><strong>Toggle Switch:</strong> CSS transform and box-shadow for moon effect</li>
+                <li><strong>Performance:</strong> GPU-accelerated animations (60fps)</li>
+                <li><strong>Accessibility:</strong> Works with keyboard navigation</li>
+                <li><strong>Browser Support:</strong> All modern browsers</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle demo functionality
+        const themeDemo = document.getElementById('themeDemo');
+        const themeDemo2 = document.getElementById('themeDemo2');
+        const themeStatus = document.getElementById('themeStatus');
+
+        function updateStatus() {
+            if (themeDemo.checked) {
+                themeStatus.textContent = 'Current: Dark Mode (Moon) 🌙';
+            } else {
+                themeStatus.textContent = 'Current: Light Mode (Sun) ☀️';
+            }
+        }
+
+        themeDemo.addEventListener('change', function() {
+            themeDemo2.checked = this.checked;
+            updateStatus();
+        });
+
+        themeDemo2.addEventListener('change', function() {
+            themeDemo.checked = this.checked;
+            updateStatus();
+        });
+    </script>
+</body>
+</html>

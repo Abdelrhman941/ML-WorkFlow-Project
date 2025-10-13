@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}Preprocessing - ML Studio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1><i class="fas fa-cogs"></i> Data Preprocessing</h1>
+        <p>Clean and transform your data for optimal model performance</p>
+    </div>
+
+    <!-- Preprocessing Steps Log -->
+    <div class="card">
+        <div class="card-header">
+            <h2><i class="fas fa-list"></i> Preprocessing Log</h2>
+            <button class="btn btn-secondary btn-sm" id="clearLogBtn">
+                <i class="fas fa-trash"></i> Clear Log
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="log-container" id="preprocessingLog">
+                <p class="text-muted">No preprocessing steps performed yet</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Column Notes Popover (Hidden by default) -->
+    <div id="columnNotesPopover" class="column-notes-popover" style="display: none;">
+        <div class="popover-header">
+            <strong id="popoverColumnName"></strong>
+            <button class="popover-close" onclick="hideColumnNotes()">×</button>
+        </div>
+        <div class="popover-body">
+            <div id="columnNotesContent">
+                <!-- Column information will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Preprocessing Tools -->
+    <div class="preprocessing-grid">
+        <!-- Missing Values -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-question-circle"></i> Handle Missing Values</h3>
+            </div>
+            <div class="card-body">
+                <form id="missingValuesForm">
+                    <div class="form-group">
+                        <label for="missingStrategy">Strategy</label>
+                        <select id="missingStrategy" class="form-control">
+                            <option value="mean">Mean Imputation</option>
+                            <option value="median">Median Imputation</option>
+                            <option value="mode">Mode Imputation</option>
+                            <option value="drop_rows">Drop Rows</option>
+                            <option value="drop_columns">Drop Columns</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="missingColumns">Columns (optional)</label>
+                        <select id="missingColumns" class="form-control" multiple>
+                            <!-- Columns will be populated dynamically -->
+                        </select>
+                        <small class="form-text">Leave empty to apply to all columns</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Apply
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Remove Columns -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-trash-alt"></i> Remove Columns</h3>
+            </div>
+            <div class="card-body">
+                <form id="removeColumnsForm">
+                    <div class="form-group">
+                        <label for="removeColumns">Select Columns to Remove</label>
+                        <select id="removeColumns" class="form-control" multiple size="8">
+                            <!-- All columns will be populated -->
+                        </select>
+                        <small class="form-text">Remove unwanted columns (e.g., IDs, Names, irrelevant features)</small>
+                    </div>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Remove Selected
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Encoding -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-code"></i> Encode Categorical Features</h3>
+            </div>
+            <div class="card-body">
+                <form id="encodingForm">
+                    <div class="form-group">
+                        <label for="encodingMethod">Method</label>
+                        <select id="encodingMethod" class="form-control">
+                            <option value="label">Label Encoding</option>
+                            <option value="onehot">One-Hot Encoding</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="encodingColumns">Columns</label>
+                        <select id="encodingColumns" class="form-control" multiple>
+                            <!-- Categorical columns will be populated -->
+                        </select>
+                        <small class="form-text">Select categorical columns to encode</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Apply
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Scaling -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-balance-scale"></i> Scale Features</h3>
+            </div>
+            <div class="card-body">
+                <form id="scalingForm">
+                    <div class="form-group">
+                        <label for="scalingMethod">Scaler</label>
+                        <select id="scalingMethod" class="form-control">
+                            <option value="standard">Standard Scaler</option>
+                            <option value="minmax">MinMax Scaler</option>
+                            <option value="robust">Robust Scaler</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="scalingColumns">Columns (optional)</label>
+                        <select id="scalingColumns" class="form-control" multiple>
+                            <!-- Numeric columns will be populated -->
+                        </select>
+                        <small class="form-text">Leave empty to scale all numeric columns</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Apply
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Remove Duplicates -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-clone"></i> Remove Duplicates</h3>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Remove duplicate rows from your dataset</p>
+                <div class="duplicate-info" id="duplicateInfo">
+                    <p><strong>Duplicates found:</strong> <span id="duplicateCount">-</span></p>
+                </div>
+                <button class="btn btn-danger" id="removeDuplicatesBtn">
+                    <i class="fas fa-trash"></i> Remove Duplicates
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Dataset Info -->
+    <div class="card">
+        <div class="card-header">
+            <h2><i class="fas fa-info-circle"></i> Current Dataset Info</h2>
+        </div>
+        <div class="card-body">
+            <div class="info-grid" id="datasetInfo">
+                <div class="info-item">
+                    <span class="info-label">Rows:</span>
+                    <span class="info-value" id="currentRows">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Columns:</span>
+                    <span class="info-value" id="currentCols">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Missing Values:</span>
+                    <span class="info-value" id="currentMissing">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Duplicates:</span>
+                    <span class="info-value" id="currentDuplicates">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <a href="/data-exploration" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Exploration
+        </a>
+        <a href="/training" class="btn btn-primary">
+            Next: Training <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/preprocessing.js') }}?v=2.0"></script>
+<script src="{{ url_for('static', filename='js/utils.js') }}?v=2.0"></script>
+{% endblock %}

@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block title %}Home - ML Studio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="gradient-text">Machine Learning Studio</span>
+            </h1>
+            <p class="hero-subtitle">
+                Complete ML workflow from data preprocessing to model evaluation
+            </p>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="datasetStatus">No Data</div>
+                        <div class="stat-label">Dataset Status</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="preprocessingStatus">Pending</div>
+                        <div class="stat-label">Preprocessing</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="modelStatus">Not Trained</div>
+                        <div class="stat-label">Model Status</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Upload Section -->
+    <section class="upload-section">
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-upload"></i> Quick Start</h2>
+            </div>
+            <div class="card-body">
+                <div class="upload-options">
+                    <!-- File Upload -->
+                    <div class="upload-option">
+                        <h3><i class="fas fa-file-csv"></i> Upload CSV File</h3>
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop your CSV file here</p>
+                            <p class="file-hint">or click to browse</p>
+                            <input type="file" id="fileInput" accept=".csv" hidden>
+                        </div>
+                    </div>
+
+                    <!-- Sample Datasets -->
+                    <div class="upload-option">
+                        <h3><i class="fas fa-flask"></i> Load Sample Dataset</h3>
+                        <div class="sample-datasets">
+                            <button class="sample-btn" data-dataset="Iris (Classification)">
+                                <i class="fas fa-leaf"></i>
+                                <span>Iris Dataset</span>
+                                <small>Classification</small>
+                            </button>
+                            <button class="sample-btn" data-dataset="Wine (Classification)">
+                                <i class="fas fa-wine-glass"></i>
+                                <span>Wine Dataset</span>
+                                <small>Classification</small>
+                            </button>
+                            <button class="sample-btn" data-dataset="Breast Cancer (Classification)">
+                                <i class="fas fa-heartbeat"></i>
+                                <span>Breast Cancer</span>
+                                <small>Classification</small>
+                            </button>
+                            <button class="sample-btn" data-dataset="Diabetes (Regression)">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Diabetes Dataset</span>
+                                <small>Regression</small>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2 class="section-title">Features & Capabilities</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>Data Exploration</h3>
+                <p>Comprehensive data analysis with statistics, visualizations, and missing value detection.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3>Smart Preprocessing</h3>
+                <p>Automated handling of missing values, encoding, scaling, and feature engineering.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Auto ML Training</h3>
+                <p>Support for Random Forest, XGBoost, LightGBM with hyperparameter tuning.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3>Model Evaluation</h3>
+                <p>Detailed metrics, confusion matrix, ROC curves, and feature importance.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <h3>Data Balancing</h3>
+                <p>SMOTE, undersampling, and oversampling for imbalanced datasets.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <h3>Export Results</h3>
+                <p>Download processed data, models, and evaluation reports.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Guide -->
+    <section class="workflow-section">
+        <h2 class="section-title">ML Workflow</h2>
+        <div class="workflow-steps">
+            <div class="workflow-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Load Data</h3>
+                    <p>Upload CSV or use sample datasets</p>
+                </div>
+            </div>
+            <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+            
+            <div class="workflow-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Explore</h3>
+                    <p>Analyze statistics and distributions</p>
+                </div>
+            </div>
+            <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+            
+            <div class="workflow-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Preprocess</h3>
+                    <p>Clean and transform your data</p>
+                </div>
+            </div>
+            <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+            
+            <div class="workflow-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Train</h3>
+                    <p>Build ML models with tuning</p>
+                </div>
+            </div>
+            <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+            
+            <div class="workflow-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Evaluate</h3>
+                    <p>Analyze model performance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endblock %}

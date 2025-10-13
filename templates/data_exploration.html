@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Data Exploration - ML Studio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1><i class="fas fa-database"></i> Data Exploration</h1>
+        <p>Analyze and understand your dataset</p>
+    </div>
+
+    <!-- Dataset Overview -->
+    <div class="card">
+        <div class="card-header">
+            <h2><i class="fas fa-info-circle"></i> Dataset Overview</h2>
+            <button class="btn btn-secondary btn-sm" id="refreshDataBtn">
+                <i class="fas fa-sync"></i> Refresh
+            </button>
+        </div>
+        <div class="card-body">
+            <div id="datasetOverview">
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <p>No dataset loaded</p>
+                    <a href="/" class="btn btn-primary">Go to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Statistics -->
+    <div class="card">
+        <div class="card-header">
+            <h2><i class="fas fa-chart-bar"></i> Statistical Summary</h2>
+        </div>
+        <div class="card-body">
+            <div id="statisticsContainer">
+                <!-- Statistics will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Sample -->
+    <div class="card">
+        <div class="card-header">
+            <h2><i class="fas fa-table"></i> Data Sample</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-container" id="dataSampleContainer">
+                <!-- Data table will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Missing Values Analysis -->
+    <div class="card">
+        <div class="card-header">
+            <h2><i class="fas fa-exclamation-triangle"></i> Missing Values Analysis</h2>
+        </div>
+        <div class="card-body">
+            <div id="missingValuesChart">
+                <!-- Chart will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Types Distribution -->
+    <div class="card">
+        <div class="card-header">
+            <h2><i class="fas fa-code"></i> Data Types</h2>
+        </div>
+        <div class="card-body">
+            <div id="dataTypesContainer">
+                <!-- Data types will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <a href="/" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        <a href="/preprocessing" class="btn btn-primary">
+            Next: Preprocessing <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/data-exploration.js') }}"></script>
+{% endblock %}

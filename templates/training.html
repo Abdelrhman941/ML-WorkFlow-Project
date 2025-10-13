@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}Training - ML Studio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1><i class="fas fa-brain"></i> Model Training</h1>
+        <p>Train and tune your machine learning models</p>
+    </div>
+
+    <!-- Training Configuration -->
+    <div class="card">
+        <div class="card-header">
+            <h2><i class="fas fa-sliders-h"></i> Training Configuration</h2>
+        </div>
+        <div class="card-body">
+            <form id="trainingForm">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="targetColumn">Target Column <span class="required">*</span></label>
+                        <select id="targetColumn" class="form-control" required>
+                            <option value="">Select target column...</option>
+                            <!-- Columns will be populated dynamically -->
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="modelSelect">Model <span class="required">*</span></label>
+                        <select id="modelSelect" class="form-control" required>
+                            <option value="Random Forest">Random Forest</option>
+                            <option value="XGBoost">XGBoost</option>
+                            <option value="LightGBM">LightGBM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="testSize">Test Size</label>
+                        <input type="number" id="testSize" class="form-control" 
+                               value="0.2" min="0.1" max="0.5" step="0.05">
+                        <small class="form-text">Proportion of data for testing (0.1-0.5)</small>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="tuningMethod">Hyperparameter Tuning</label>
+                        <select id="tuningMethod" class="form-control">
+                            <option value="None">None</option>
+                            <option value="Grid Search">Grid Search</option>
+                            <option value="Random Search">Random Search</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="useCrossValidation">Cross Validation</label>
+                        <select id="useCrossValidation" class="form-control">
+                            <option value="true">Yes (5-fold CV)</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-play"></i> Train Model
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Training Results -->
+    <div class="card" id="resultsCard" style="display: none;">
+        <div class="card-header">
+            <h2><i class="fas fa-trophy"></i> Training Results</h2>
+        </div>
+        <div class="card-body">
+            <!-- Model Info -->
+            <div class="result-section">
+                <h3>Model Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Model:</span>
+                        <span class="info-value" id="resultModelName">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Task Type:</span>
+                        <span class="info-value" id="resultTaskType">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Target:</span>
+                        <span class="info-value" id="resultTarget">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Metrics -->
+            <div class="result-section">
+                <h3>Performance Metrics</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon bg-success">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="metric-info">
+                            <div class="metric-label">Train Score</div>
+                            <div class="metric-value" id="trainScore">-</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon bg-primary">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="metric-info">
+                            <div class="metric-label">Test Score</div>
+                            <div class="metric-value" id="testScore">-</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon bg-info">
+                            <i class="fas fa-random"></i>
+                        </div>
+                        <div class="metric-info">
+                            <div class="metric-label">CV Score (Mean)</div>
+                            <div class="metric-value" id="cvScore">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Best Parameters -->
+            <div class="result-section" id="bestParamsSection" style="display: none;">
+                <h3>Best Hyperparameters</h3>
+                <div class="params-container" id="bestParams">
+                    <!-- Parameters will be displayed here -->
+                </div>
+            </div>
+
+            <!-- Feature Importance -->
+            <div class="result-section" id="featureImportanceSection" style="display: none;">
+                <h3>Feature Importance (Top 15)</h3>
+                <div class="chart-container">
+                    <canvas id="featureImportanceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Cross-Validation Scores -->
+            <div class="result-section" id="cvScoresSection" style="display: none;">
+                <h3>Cross-Validation Scores</h3>
+                <div class="chart-container">
+                    <canvas id="cvScoresChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <a href="/preprocessing" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Preprocessing
+        </a>
+        <a href="/evaluation" class="btn btn-primary" id="evaluationBtn" style="display: none;">
+            Next: Evaluation <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/training.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Animation Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #0d1117;
+            color: #e6edf3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #5bc0be;
+        }
+
+        .demo-section {
+            background: #1c2128;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .demo-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #5bc0be;
+        }
+
+        .btn {
+            background: #5bc0be;
+            color: #0d1117;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            background: #4aa8a6;
+            transform: translateY(-2px);
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 17, 23, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-text {
+            color: #e6edf3;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            font-weight: 500;
+        }
+
+        .loading-subtext {
+            color: #8b949e;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Dots Loading Animation */
+        .dots-loader {
+            --uib-size: 60px;
+            --uib-color: #5bc0be;
+            --uib-speed: 2.5s;
+            --uib-dot-size: calc(var(--uib-size) * 0.18);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: var(--uib-size);
+            height: var(--uib-dot-size);
+            margin: 0 auto;
+        }
+
+        .dots-loader .dot {
+            position: absolute;
+            top: calc(50% - var(--uib-dot-size) / 2);
+            left: calc(0px - var(--uib-dot-size) / 2);
+            display: block;
+            height: var(--uib-dot-size);
+            width: var(--uib-dot-size);
+            border-radius: 50%;
+            background-color: var(--uib-color);
+            animation: stream var(--uib-speed) linear infinite both;
+            transition: background-color 0.3s ease;
+        }
+
+        .dots-loader .dot:nth-child(2) {
+            animation-delay: calc(var(--uib-speed) * -0.2);
+        }
+
+        .dots-loader .dot:nth-child(3) {
+            animation-delay: calc(var(--uib-speed) * -0.4);
+        }
+
+        .dots-loader .dot:nth-child(4) {
+            animation-delay: calc(var(--uib-speed) * -0.6);
+        }
+
+        .dots-loader .dot:nth-child(5) {
+            animation-delay: calc(var(--uib-speed) * -0.8);
+        }
+
+        @keyframes stream {
+            0%, 100% {
+                transform: translateX(0) scale(0);
+            }
+            50% {
+                transform: translateX(calc(var(--uib-size) * 0.5)) scale(1);
+            }
+            99.999% {
+                transform: translateX(calc(var(--uib-size))) scale(0);
+            }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 300px;
+            height: 4px;
+            background: #21262d;
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 1.5rem auto 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #5bc0be, #17a2b8);
+            width: 0%;
+            animation: progress 2s ease-in-out infinite;
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        /* Inline Demo */
+        .inline-demo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 150px;
+        }
+
+        code {
+            background: #21262d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #5bc0be;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Professional Loading Animation Demo</h1>
+
+    <div class="demo-section">
+        <div class="demo-title">1. Full Screen Loading Overlay</div>
+        <p>Click buttons to see loading animation with different messages:</p>
+        <button class="btn" onclick="showDemo('Uploading dataset...', 'Reading and validating file', 3000)">
+            Upload Demo (3s)
+        </button>
+        <button class="btn" onclick="showDemo('Training Random Forest...', 'This may take a few moments', 4000)">
+            Training Demo (4s)
+        </button>
+        <button class="btn" onclick="showDemo('Handling missing values...', 'Using mean strategy', 2000)">
+            Preprocessing Demo (2s)
+        </button>
+        <button class="btn" onclick="showDemo('Loading dataset information...', 'Analyzing data structure', 2500)">
+            Analysis Demo (2.5s)
+        </button>
+    </div>
+
+    <div class="demo-section">
+        <div class="demo-title">2. Inline Dots Animation</div>
+        <p>The animation without overlay:</p>
+        <div class="inline-demo">
+            <div class="dots-loader">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <div class="demo-title">3. Animation Details</div>
+        <p><strong>Features:</strong></p>
+        <ul>
+            <li>✅ 5 dots streaming from left to right</li>
+            <li>✅ Smooth scale and translate animations</li>
+            <li>✅ 2.5s animation cycle</li>
+            <li>✅ Sequential timing (0.2s delay between dots)</li>
+            <li>✅ Primary theme color (#5bc0be)</li>
+            <li>✅ Progress bar with gradient</li>
+            <li>✅ Backdrop blur effect</li>
+        </ul>
+        <p><strong>Usage:</strong></p>
+        <code>showLoading('Main text...', 'Subtext here')</code>
+    </div>
+
+    <div class="demo-section">
+        <div class="demo-title">4. Customization</div>
+        <p>Adjust animation speed:</p>
+        <button class="btn" onclick="changeSpeed('1.5s')">Fast (1.5s)</button>
+        <button class="btn" onclick="changeSpeed('2.5s')">Normal (2.5s)</button>
+        <button class="btn" onclick="changeSpeed('4s')">Slow (4s)</button>
+        
+        <p style="margin-top: 20px;">Change dot color:</p>
+        <button class="btn" onclick="changeColor('#5bc0be')">Teal (Default)</button>
+        <button class="btn" onclick="changeColor('#28a745')">Green</button>
+        <button class="btn" onclick="changeColor('#ffc107')">Yellow</button>
+        <button class="btn" onclick="changeColor('#dc3545')">Red</button>
+        <button class="btn" onclick="changeColor('#17a2b8')">Blue</button>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="dots-loader">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <p class="loading-text">Processing...</p>
+            <p class="loading-subtext">Please wait</p>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showDemo(text, subtext, duration) {
+            const overlay = document.getElementById('loadingOverlay');
+            const loadingText = overlay.querySelector('.loading-text');
+            const loadingSubtext = overlay.querySelector('.loading-subtext');
+            
+            loadingText.textContent = text;
+            loadingSubtext.textContent = subtext;
+            overlay.classList.add('active');
+            
+            setTimeout(() => {
+                overlay.classList.remove('active');
+            }, duration);
+        }
+
+        function changeSpeed(speed) {
+            const loaders = document.querySelectorAll('.dots-loader');
+            loaders.forEach(loader => {
+                loader.style.setProperty('--uib-speed', speed);
+            });
+        }
+
+        function changeColor(color) {
+            const loaders = document.querySelectorAll('.dots-loader');
+            loaders.forEach(loader => {
+                loader.style.setProperty('--uib-color', color);
+            });
+        }
+    </script>
+</body>
+</html>

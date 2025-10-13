@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Evaluation - ML Studio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1><i class="fas fa-chart-line"></i> Model Evaluation</h1>
+        <p>Analyze your model's performance and insights</p>
+    </div>
+
+    <!-- Evaluation Results -->
+    <div class="card">
+        <div class="card-header">
+            <h2><i class="fas fa-trophy"></i> Performance Summary</h2>
+            <button class="btn btn-secondary btn-sm" id="refreshEvalBtn">
+                <i class="fas fa-sync"></i> Refresh
+            </button>
+        </div>
+        <div class="card-body">
+            <div id="evaluationResults">
+                <div class="empty-state">
+                    <i class="fas fa-robot"></i>
+                    <p>No model trained yet</p>
+                    <a href="/training" class="btn btn-primary">Go to Training</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Metrics -->
+    <div class="card" id="metricsCard" style="display: none;">
+        <div class="card-header">
+            <h2><i class="fas fa-analytics"></i> Detailed Metrics</h2>
+        </div>
+        <div class="card-body">
+            <div class="metrics-dashboard">
+                <div class="metric-group">
+                    <h3>Model Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Model Type:</span>
+                            <span class="info-value" id="evalModelName">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Task:</span>
+                            <span class="info-value" id="evalTaskType">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-group">
+                    <h3>Performance Scores</h3>
+                    <div class="score-cards">
+                        <div class="score-card">
+                            <div class="score-label">Training Score</div>
+                            <div class="score-value" id="evalTrainScore">-</div>
+                            <div class="score-bar">
+                                <div class="score-fill" id="trainScoreBar"></div>
+                            </div>
+                        </div>
+                        <div class="score-card">
+                            <div class="score-label">Test Score</div>
+                            <div class="score-value" id="evalTestScore">-</div>
+                            <div class="score-bar">
+                                <div class="score-fill" id="testScoreBar"></div>
+                            </div>
+                        </div>
+                        <div class="score-card" id="cvScoreCard" style="display: none;">
+                            <div class="score-label">CV Score (Mean ± Std)</div>
+                            <div class="score-value" id="evalCvScore">-</div>
+                            <div class="score-bar">
+                                <div class="score-fill" id="cvScoreBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-group" id="cvDetailsGroup" style="display: none;">
+                    <h3>Cross-Validation Details</h3>
+                    <div class="chart-container">
+                        <canvas id="cvDetailsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model Insights -->
+    <div class="card" id="insightsCard" style="display: none;">
+        <div class="card-header">
+            <h2><i class="fas fa-lightbulb"></i> Model Insights</h2>
+        </div>
+        <div class="card-body">
+            <div class="insights-container" id="modelInsights">
+                <!-- Insights will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Options -->
+    <div class="card" id="exportCard" style="display: none;">
+        <div class="card-header">
+            <h2><i class="fas fa-download"></i> Export Options</h2>
+        </div>
+        <div class="card-body">
+            <div class="export-options">
+                <button class="export-btn" id="exportResultsBtn">
+                    <i class="fas fa-file-export"></i>
+                    <span>Export Results (JSON)</span>
+                </button>
+                <button class="export-btn" id="exportReportBtn">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Generate Report</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <a href="/training" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Training
+        </a>
+        <a href="/" class="btn btn-primary">
+            <i class="fas fa-home"></i> Home
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/evaluation.js') }}"></script>
+{% endblock %}

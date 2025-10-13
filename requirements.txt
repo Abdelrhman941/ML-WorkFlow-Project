@@ -1,0 +1,24 @@
+# Core ML Studio Dependencies
+# Data manipulation and analysis
+pandas>=1.5.0
+numpy>=1.21.0
+
+# Machine learning
+scikit-learn>=1.1.0
+xgboost>=3.0.0  # Fixed sklearn_tags compatibility issue
+lightgbm>=3.3.0
+
+# Imbalanced learning
+imbalanced-learn>=0.9.0
+
+# Statistical analysis
+scipy>=1.9.0
+
+# Visualization
+plotly>=5.10.0
+matplotlib>=3.5.0
+
+# Flask Web Application (NEW)
+Flask>=2.3.0
+Flask-Session>=0.5.0
+Werkzeug>=2.3.0
