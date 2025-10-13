@@ -1,5 +1,6 @@
 # **ML Studio v2.0**
 
+![image](demo/image.png)
 A comprehensive web-based machine learning application for data preprocessing, model training, and evaluation with an intuitive dark/light theme interface.
 
 ## **📋 Overview**
