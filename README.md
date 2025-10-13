@@ -9,7 +9,7 @@
 A comprehensive web-based machine learning application for data preprocessing, model training, and evaluation with an intuitive dark/light theme interface.
 
 <div align="center">
-  <a href="https://ml-workflow-project.onrender.com/data-exploration" target="_blank">
+  <a href="https://ml-workflow-project.onrender.com/" target="_blank">
     <img src="https://img.shields.io/badge/ML%20Studio%20Website-3A7CA5?style=for-the-badge&color=3A7CA5" />
   </a>
 </div>
