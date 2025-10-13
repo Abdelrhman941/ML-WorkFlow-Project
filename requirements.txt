@@ -19,6 +19,8 @@ plotly>=5.10.0
 matplotlib>=3.5.0
 
 # Flask Web Application (NEW)
-Flask>=2.3.0
-Flask-Session>=0.5.0
-Werkzeug>=2.3.0
+flask
+flask-cors
+flask-session
+gunicorn
+werkzeug>=2.3.0
