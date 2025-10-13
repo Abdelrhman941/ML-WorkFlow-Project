@@ -1,11 +1,5 @@
 # **ML Studio v2.0**
 
-![image](demo/image.png)
-
-<div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&section=header&animation=twinkling"/>
-</div>
-
 A comprehensive web-based machine learning application for data preprocessing, model training, and evaluation with an intuitive dark/light theme interface.
 
 <div align="center">
@@ -17,6 +11,15 @@ A comprehensive web-based machine learning application for data preprocessing, m
 <div align="center">
   <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&section=header&animation=twinkling"/>
 </div>
+
+![image](demo/image.png)
+
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&section=header&animation=twinkling"/>
+</div>
+
+
+> ### **Note**: A mobile-responsive version of the ML Studio interface will be released soon to ensure a seamless experience across all devices.
 
 ## **📋 Overview**
 
