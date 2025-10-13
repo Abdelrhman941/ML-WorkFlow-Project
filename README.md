@@ -1,7 +1,22 @@
 # **ML Studio v2.0**
 
 ![image](demo/image.png)
+
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&section=header&animation=twinkling"/>
+</div>
+
 A comprehensive web-based machine learning application for data preprocessing, model training, and evaluation with an intuitive dark/light theme interface.
+
+<div align="center">
+  <a href="https://ml-workflow-project.onrender.com/data-exploration" target="_blank">
+    <img src="https://img.shields.io/badge/ML%20Studio%20Website-3A7CA5?style=for-the-badge&color=3A7CA5" />
+  </a>
+</div>
+
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&section=header&animation=twinkling"/>
+</div>
 
 ## **📋 Overview**
 
