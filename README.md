@@ -12,12 +12,6 @@ A comprehensive web-based machine learning application for data preprocessing, m
   <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&section=header&animation=twinkling"/>
 </div>
 
-![image](demo/image.png)
-
-<div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&section=header&animation=twinkling"/>
-</div>
-
 <p align="center">
   <a href="https://youtu.be/te4OaqhCxuQ" target="_blank">
     <img src="https://img.youtube.com/vi/te4OaqhCxuQ/0.jpg"
