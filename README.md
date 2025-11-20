@@ -19,9 +19,9 @@ A comprehensive web-based machine learning application for data preprocessing, m
 </div>
 
 <p align="center">
-  <a href="https://youtu.be/GON7fzSb4-A" target="_blank">
-    <img src="https://img.youtube.com/vi/GON7fzSb4-A/0.jpg" 
-         alt="Project Demo Video" 
+  <a href="https://youtu.be/te4OaqhCxuQ" target="_blank">
+    <img src="https://img.youtube.com/vi/te4OaqhCxuQ/0.jpg"
+         alt="Project Demo Video"
          style="width:70%; border-radius:10px;">
   </a>
 </p>
@@ -57,7 +57,7 @@ Preprocessing App/
 │   ├── preprocessing.html      # Data preprocessing page
 │   ├── training.html           # Model training page
 │   └── evaluation.html         # Results & evaluation page
-├── static/ 
+├── static/
 │   ├── css/main.css            # Styling (dark/light themes)
 │   └── js/                     # Frontend JavaScript
 │       ├── main.js             # Core functionality
