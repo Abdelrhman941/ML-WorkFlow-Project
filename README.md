@@ -18,6 +18,18 @@ A comprehensive web-based machine learning application for data preprocessing, m
   <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&section=header&animation=twinkling"/>
 </div>
 
+<p align="center">
+  <a href="https://youtu.be/GON7fzSb4-A" target="_blank">
+    <img src="https://img.youtube.com/vi/GON7fzSb4-A/0.jpg" 
+         alt="Project Demo Video" 
+         style="width:70%; border-radius:10px;">
+  </a>
+</p>
+
+<p align="center">
+  <strong>▶ Watch the Demo Video</strong>
+</p>
+
 
 > ### **Note**: A mobile-responsive version of the ML Studio interface will be released soon to ensure a seamless experience across all devices.
 
